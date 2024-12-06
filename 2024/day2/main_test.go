@@ -30,5 +30,4 @@ func Benchmark(b *testing.B) {
 			solve(bufio.NewScanner(reader), 1)
 		}
 	})
-
 }

@@ -1,8 +1,10 @@
 package pkg
 
 import (
-	"golang.org/x/exp/constraints"
+	"cmp"
 	"strconv"
+
+	"golang.org/x/exp/constraints"
 )
 
 func AbsDiff[T constraints.Integer](a, b T) T {
@@ -19,6 +21,18 @@ func Abs[T constraints.Signed](n T) T {
 	}
 
 	return n
+}
+
+func Clamp[T cmp.Ordered](v, min, max T) T {
+	if v < min {
+		return min
+	}
+
+	if v > max {
+		return max
+	}
+
+	return v
 }
 
 // ParseInt ignores conversion errors
