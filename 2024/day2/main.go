@@ -10,8 +10,6 @@ import (
 	"github.com/gabefiori/aoc-go/pkg"
 )
 
-const sep = " "
-
 const (
 	ordAsc int = iota
 	ordDesc
@@ -25,8 +23,7 @@ func solve(sc *bufio.Scanner, tolerance int) int {
 	lvl := make([]int, 0, 10)
 
 	for sc.Scan() {
-		lvl = pkg.ParseInts(strings.Split(sc.Text(), sep), lvl)
-
+		lvl = pkg.ParseInts(strings.Split(sc.Text(), " "), lvl)
 		curr, next, fails := 0, 1, 0
 		ord := order(lvl[curr], lvl[next])
 
