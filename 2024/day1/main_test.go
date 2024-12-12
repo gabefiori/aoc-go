@@ -5,15 +5,20 @@ import (
 	"bytes"
 	"testing"
 
+	_ "embed"
+
 	"github.com/stretchr/testify/assert"
 )
 
+//go:embed input_test.txt
+var inputTest []byte
+
 func Test(t *testing.T) {
-	reader := bytes.NewReader(input)
+	reader := bytes.NewReader(inputTest)
 	sum, sim := solve(bufio.NewScanner(reader))
 
-	assert.Equal(t, 2769675, sum)
-	assert.Equal(t, 24643097, sim)
+	assert.Equal(t, 11, sum)
+	assert.Equal(t, 31, sim)
 }
 
 func Benchmark(b *testing.B) {

@@ -68,14 +68,14 @@ func solve(buf *bytes.Buffer) (int, int) {
 }
 
 func contains(s, v []int) int {
-    for _, x := range s {
-        for i, y := range v {
-            if x == y {
-                return i
-            }
-        }
-    }
-    return -1
+	for _, x := range s {
+		for i, y := range v {
+			if x == y {
+				return i
+			}
+		}
+	}
+	return -1
 }
 
 func main() {

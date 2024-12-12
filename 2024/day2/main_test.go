@@ -5,13 +5,18 @@ import (
 	"bytes"
 	"testing"
 
+	_ "embed"
+
 	"github.com/gabefiori/aoc-go/pkg"
 	"github.com/stretchr/testify/assert"
 )
 
+//go:embed input_test.txt
+var inputTest []byte
+
 func Test(t *testing.T) {
-	assert.Equal(t, 402, solve(pkg.NewScanner(input), 0))
-	assert.Equal(t, 455, solve(pkg.NewScanner(input), 1))
+	assert.Equal(t, 2, solve(pkg.NewScanner(inputTest), false))
+	assert.Equal(t, 4, solve(pkg.NewScanner(inputTest), true))
 }
 
 func Benchmark(b *testing.B) {
@@ -19,7 +24,7 @@ func Benchmark(b *testing.B) {
 		reader := bytes.NewReader(input)
 		for i := 0; i < b.N; i++ {
 			_, _ = reader.Seek(0, 0)
-			solve(bufio.NewScanner(reader), 0)
+			solve(bufio.NewScanner(reader), false)
 		}
 	})
 
@@ -27,7 +32,7 @@ func Benchmark(b *testing.B) {
 		reader := bytes.NewReader(input)
 		for i := 0; i < b.N; i++ {
 			_, _ = reader.Seek(0, 0)
-			solve(bufio.NewScanner(reader), 1)
+			solve(bufio.NewScanner(reader), true)
 		}
 	})
 }

@@ -6,6 +6,6 @@ import (
 )
 
 func NewScanner(input []byte) *bufio.Scanner {
-	reader := bytes.NewReader(input)
-	return bufio.NewScanner(reader)
+	r := bytes.NewReader(input)
+	return bufio.NewScanner(r)
 }

@@ -4,14 +4,19 @@ import (
 	"bytes"
 	"testing"
 
+	_ "embed"
+
 	"github.com/stretchr/testify/assert"
 )
 
-func Test(t *testing.T) {
-	part1, part2 := solve(bytes.NewBuffer(input))
+//go:embed input_test.txt
+var inputTest []byte
 
-	assert.Equal(t, 4637, part1)
-	assert.Equal(t, 6370, part2)
+func Test(t *testing.T) {
+	part1, part2 := solve(bytes.NewBuffer(inputTest))
+
+	assert.Equal(t, 143, part1)
+	assert.Equal(t, 123, part2)
 }
 
 func Benchmark(b *testing.B) {

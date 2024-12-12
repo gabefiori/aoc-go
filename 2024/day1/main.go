@@ -2,10 +2,11 @@ package main
 
 import (
 	"bufio"
-	_ "embed"
 	"fmt"
 	"slices"
 	"strings"
+
+	_ "embed"
 
 	"github.com/gabefiori/aoc-go/pkg"
 )

@@ -1,14 +1,21 @@
 package main
 
 import (
+	_ "embed"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
 )
 
+//go:embed input_test.txt
+var inputTest string
+
+//go:embed input_test-2.txt
+var inputTest2 string
+
 func Test(t *testing.T) {
-	assert.Equal(t, 179834255, solve(input, false))
-	assert.Equal(t, 80570939, solve(input, true))
+	assert.Equal(t, 161, solve(inputTest, false))
+	assert.Equal(t, 48, solve(inputTest2, true))
 }
 
 func Benchmark(b *testing.B) {

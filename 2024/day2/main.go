@@ -11,45 +11,63 @@ import (
 )
 
 const (
-	ordAsc int = iota
+	ordInit int = iota
+	ordAsc
 	ordDesc
 )
 
 //go:embed input.txt
 var input []byte
 
-func solve(sc *bufio.Scanner, tolerance int) int {
-	var safe int
-	lvl := make([]int, 0, 10)
+func solve(sc *bufio.Scanner, tolerate bool) int {
+	var count int
+
+	lvl := make([]int, 10)
+	newLvl := make([]int, 10)
 
 	for sc.Scan() {
-		lvl = pkg.ParseInts(strings.Split(sc.Text(), " "), lvl)
-		curr, next, fails := 0, 1, 0
-		ord := order(lvl[curr], lvl[next])
+		lvl := pkg.ParseInts(strings.Split(sc.Text(), " "), lvl)
 
-		for next < len(lvl) {
-			diff := pkg.AbsDiff(lvl[curr], lvl[next])
+		if safe(lvl) {
+			count++
+		} else if tolerate {
+			for i := 0; i < len(lvl); i++ {
+				newLvl = newLvl[:0]
+				newLvl = append(newLvl, lvl[:i]...)
+				newLvl = append(newLvl, lvl[i+1:]...)
 
-			if (diff >= 1 && diff <= 3) && (order(lvl[curr], lvl[next]) == ord) {
-				curr = next
-				next++
-				continue
+				if safe(newLvl) {
+					count++
+					break
+				}
 			}
-
-			if fails >= tolerance {
-				safe--
-				break
-			}
-
-			fails++
-			curr++
-			next++
 		}
-
-		safe++
 	}
 
-	return safe
+	return count
+}
+
+func safe(lvl []int) bool {
+	curr, next, ord := 0, 1, ordInit
+
+	for next < len(lvl) {
+		diff := pkg.AbsDiff(lvl[curr], lvl[next])
+
+		if diff < 1 || diff > 3 {
+			return false
+		}
+
+		newOrd := order(lvl[curr], lvl[next])
+		if ord != ordInit && ord != newOrd {
+			return false
+		}
+
+		ord = newOrd
+		curr = next
+		next++
+	}
+
+	return true
 }
 
 func order(a, b int) int {
@@ -57,12 +75,15 @@ func order(a, b int) int {
 		return ordDesc
 	}
 
-	return ordAsc
+	if a < b {
+		return ordAsc
+	}
+
+	return ordInit
 }
 
 func main() {
-	part1 := solve(pkg.NewScanner(input), 0)
-	part2 := solve(pkg.NewScanner(input), 1)
-
+	part1 := solve(pkg.NewScanner(input), false)
+	part2 := solve(pkg.NewScanner(input), true)
 	fmt.Println(part1, part2)
 }
