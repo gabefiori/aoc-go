@@ -22,17 +22,19 @@ func Test(t *testing.T) {
 func Benchmark(b *testing.B) {
 	b.Run("Part 1", func(b *testing.B) {
 		reader := bytes.NewReader(input)
+		ops := []int{add, mult}
 		for i := 0; i < b.N; i++ {
 			_, _ = reader.Seek(0, 0)
-			solve(bufio.NewScanner(reader), []int{add, mult})
+			solve(bufio.NewScanner(reader), ops)
 		}
 	})
 
 	b.Run("Part 2", func(b *testing.B) {
 		reader := bytes.NewReader(input)
+		ops := []int{add, mult, concat}
 		for i := 0; i < b.N; i++ {
 			_, _ = reader.Seek(0, 0)
-			solve(bufio.NewScanner(reader), []int{add, mult, concat})
+			solve(bufio.NewScanner(reader), ops)
 		}
 	})
 }
