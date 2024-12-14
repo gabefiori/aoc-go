@@ -20,7 +20,7 @@ const (
 //go:embed input.txt
 var input []byte
 
-func solve(sc *bufio.Scanner, ops []int) int {
+func solve(sc *bufio.Scanner, operators []int) int {
 	var sum, target int
 	var part, comb, vals []int
 
@@ -31,7 +31,7 @@ func solve(sc *bufio.Scanner, ops []int) int {
 		vals = pkg.ParseInts(strings.Split(line[sep+2:], " "), vals)
 
 		part, comb = part[:0], comb[:0]
-		operators(len(vals)-1, part, ops, &comb)
+		genOperators(len(vals)-1, part, operators, &comb)
 
 		for ops := range slices.Chunk(comb, len(vals)-1) {
 			t := vals[0]
@@ -56,14 +56,14 @@ func solve(sc *bufio.Scanner, ops []int) int {
 	return sum
 }
 
-func operators(n int, curr, ops []int, res *[]int) {
+func genOperators(n int, curr, ops []int, res *[]int) {
 	if len(curr) == n {
 		*res = append(*res, curr...)
 		return
 	}
 
 	for _, op := range ops {
-		operators(n, append(curr, op), ops, res)
+		genOperators(n, append(curr, op), ops, res)
 	}
 }
 
