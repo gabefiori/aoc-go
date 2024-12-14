@@ -32,7 +32,7 @@ func Benchmark(b *testing.B) {
 		reader := bytes.NewReader(input)
 		for i := 0; i < b.N; i++ {
 			_, _ = reader.Seek(0, 0)
-			solve(bufio.NewScanner(reader), []int{add, concat, concat})
+			solve(bufio.NewScanner(reader), []int{add, mult, concat})
 		}
 	})
 }
