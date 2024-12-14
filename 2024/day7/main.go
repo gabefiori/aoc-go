@@ -31,12 +31,12 @@ func solve(sc *bufio.Scanner, ops []int) int {
 		vals = pkg.ParseInts(strings.Split(line[sep+2:], " "), vals)
 
 		part, comb = part[:0], comb[:0]
-		operations(len(vals)-1, part, ops, &comb)
+		operators(len(vals)-1, part, ops, &comb)
 
-		for chunk := range slices.Chunk(comb, len(vals)-1) {
+		for ops := range slices.Chunk(comb, len(vals)-1) {
 			t := vals[0]
 			for i, val := range vals[1:] {
-				switch chunk[i] {
+				switch ops[i] {
 				case add:
 					t += val
 				case mult:
@@ -56,14 +56,14 @@ func solve(sc *bufio.Scanner, ops []int) int {
 	return sum
 }
 
-func operations(n int, curr, ops []int, res *[]int) {
+func operators(n int, curr, ops []int, res *[]int) {
 	if len(curr) == n {
 		*res = append(*res, curr...)
 		return
 	}
 
 	for _, op := range ops {
-		operations(n, append(curr, op), ops, res)
+		operators(n, append(curr, op), ops, res)
 	}
 }
 
