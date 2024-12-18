@@ -19,18 +19,14 @@ func Test(t *testing.T) {
 
 func Benchmark(b *testing.B) {
 	b.Run("Part 1", func(b *testing.B) {
-		reader := bytes.NewReader(input)
 		for i := 0; i < b.N; i++ {
-			_, _ = reader.Seek(0, 0)
-			solve(reader, blocks)
+			solve(bytes.NewReader(input), blocks)
 		}
 	})
 
 	b.Run("Part 2", func(b *testing.B) {
-		reader := bytes.NewReader(input)
 		for i := 0; i < b.N; i++ {
-			_, _ = reader.Seek(0, 0)
-			solve(reader, files)
+			solve(bytes.NewReader(input), files)
 		}
 	})
 }

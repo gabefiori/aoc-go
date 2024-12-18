@@ -22,7 +22,7 @@ func solve(sc *bufio.Scanner) (int, int) {
 	var maze [][]byte
 
 	for row := 0; sc.Scan(); row++ {
-		line := sc.Text()
+		line := sc.Bytes()
 		maze = append(maze, append([]byte(nil), line...))
 
 		for col, b := range line {

@@ -1,10 +1,7 @@
 package main
 
 import (
-	"bufio"
-	"bytes"
 	"testing"
-
 	_ "embed"
 
 	"github.com/gabefiori/aoc-go/pkg"
@@ -21,18 +18,14 @@ func Test(t *testing.T) {
 
 func Benchmark(b *testing.B) {
 	b.Run("Part 1", func(b *testing.B) {
-		reader := bytes.NewReader(input)
 		for i := 0; i < b.N; i++ {
-			_, _ = reader.Seek(0, 0)
-			solve(bufio.NewScanner(reader), false)
+			solve(pkg.NewScanner(input), false)
 		}
 	})
 
 	b.Run("Part 2", func(b *testing.B) {
-		reader := bytes.NewReader(input)
 		for i := 0; i < b.N; i++ {
-			_, _ = reader.Seek(0, 0)
-			solve(bufio.NewScanner(reader), true)
+			solve(pkg.NewScanner(input), true)
 		}
 	})
 }
